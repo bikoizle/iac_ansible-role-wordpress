@@ -1,2 +1,18 @@
 ---
 # vars file for iac_ansible-role-wordpress
+
+packages:
+  - php
+  - php-mysqlnd
+  - php-gd
+
+db_socket: "/var/lib/mysql/mysql.sock"
+
+wordpress_file_url: "http://wordpress.org/latest.tar.gz"
+mariadb_wordpress_db_name: "wordpress"
+mariadb_wordpress_user: "wordpress_admin"
+wordpress_file_path: "/tmp/wordpress.tar.gz"
+wordpress_conf_file: "wp-config.php.j2"
+
+customapp_folder: "/var/www/html/customapp"
+customos_html_index: "{{ customapp_folder }}/index.html"

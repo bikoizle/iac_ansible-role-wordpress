@@ -1,5 +1,53 @@
 ---
 # tasks file for iac_ansible-role-wordpress
 
-- debug:
-    msg: "Wordpress Dummy task"
+- name: Install packages
+  dnf:
+    name: "{{ packages }}"
+    state: present
+
+- name: Create wordpress database
+  mysql_db:
+    name: "{{ mariadb_wordpress_db_name }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    login_unix_socket: "{{ mariadb_socket }}"
+    state: present
+
+- name: Create wordpress user
+  mysql_user:
+    name: "{{ mariadb_wordpress_user }}"
+    password: "{{ mariadb_wordpress_user_password }}"
+    host: "localhost"
+    priv: "wordpress.*:ALL"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    login_unix_socket: "{{ db_socket }}"
+    state: present
+
+- name: Download wordpress
+  get_url:
+    url: "{{ wordpress_file_url }}"
+    dest: "{{ wordpress_file_path }}"
+
+- name: "Extract {{ wordpress_file_path }} file into {{ customapp_folder }}"
+  unarchive:
+    src: "{{ wordpress_file_path }}"
+    dest: "{{ customapp_folder }}"
+
+- name: Copy wordpress configuration template
+  template:
+    src: "{{ wordpress_conf_file }}"
+    dest: "{{ customapp_folder }}/{{ wordpress_conf_file }}"
+  register: wp_config
+
+- name: Remove customos html index file
+  file:
+    path: "{{ customos_html_index }}"
+    state: absent
+
+- name: Restart httpd service
+  service:
+    name: httpd
+    state: restarted
+  when: wp_config.changed

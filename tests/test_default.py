@@ -1,3 +1,5 @@
-def test_os_release_file(host):
-    f = host.file('/etc/os-release')
-    assert f.exists
+
+
+def test_wordpress_is_working(host):
+    cmd = host.run("curl -L http://localhost | grep 'WordPress'")
+    assert cmd.rc == 0
