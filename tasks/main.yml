@@ -1,0 +1,5 @@
+---
+# tasks file for iac_ansible-role-wordpress
+
+- debug:
+    msg: "Wordpress Dummy task"
