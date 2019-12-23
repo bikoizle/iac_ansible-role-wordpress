@@ -11,7 +11,7 @@
     name: "{{ mariadb_wordpress_db_name }}"
     login_user: root
     login_password: "{{ mariadb_root_password }}"
-    login_unix_socket: "{{ mariadb_socket }}"
+    login_unix_socket: "{{ db_socket }}"
     state: present
 
 - name: Create wordpress user
