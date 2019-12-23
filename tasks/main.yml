@@ -34,6 +34,7 @@
   unarchive:
     src: "{{ wordpress_file_path }}"
     dest: "{{ customapp_folder }}"
+    remote_src: yes
 
 - name: Copy wordpress configuration template
   template:
