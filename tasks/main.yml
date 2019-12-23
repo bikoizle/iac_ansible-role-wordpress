@@ -30,15 +30,21 @@
     url: "{{ wordpress_file_url }}"
     dest: "{{ wordpress_file_path }}"
 
-- name: "Extract {{ wordpress_file_path }} file into {{ customapp_folder }}"
+- name: "Extract {{ wordpress_file_path }} file"
   unarchive:
     src: "{{ wordpress_file_path }}"
+    dest: "{{ tmp_dir }}"
+    remote_src: yes
+
+- name: "Copy wordpress files to customapp"
+  copy:
+    src: "{{ tmp_dir }}/wordpress/"
     dest: "{{ customapp_folder }}"
     remote_src: yes
 
 - name: Copy wordpress configuration template
   template:
-    src: "{{ wordpress_conf_file }}"
+    src: "{{ wordpress_conf_template }}"
     dest: "{{ customapp_folder }}/{{ wordpress_conf_file }}"
   register: wp_config
 
