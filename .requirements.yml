@@ -1,0 +1,6 @@
+- src: https://github.com/bikoizle/iac_ansible-role-server.git
+  version: "0.2.3"
+- src: https://github.com/bikoizle/iac_ansible-role-apache.git
+  version: "0.3.7"
+- src: https://github.com/bikoizle/iac_ansible-role-mariadb.git
+  version: "0.1.9"
