@@ -1,0 +1,5 @@
+---
+# defaults file for iac_ansible-role-wordpress
+
+mariadb_root_password: "insecure"
+mariadb_wordpress_user_password: "insecure"
