@@ -1,38 +1,45 @@
-Role Name
-=========
+Wordpress Role
+==============
 
-A brief description of the role goes here.
+Configures a Wordpress server based on Fedora with CustomOS settings:
+
+- Downloads latest Wordpress version.
+- Extracts Wordpress files in /var/www/html/customapp and uses it as Apache HTTPD root path.
+- Sets up a mariadb database and a custom user for Wordpress use.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+A Fedora system.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+mariadb_root_password: "insecure"
+mariadb_wordpress_user_password: "insecure"
+
+Static variables like packages list or configuration file settings
+can be found in vars/ directory.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role has iac_ansible-role-server, iac_ansible-role-apache and iac_ansible-role-mariadb as dependencies. All of theabove are configured in ansible-galaxy .requirements file.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
+```
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: iac_ansible-role-wordpress }
+```
 
 License
 -------
 
-BSD
+GPL3
 
 Author Information
-------------------
+--------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
